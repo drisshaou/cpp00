@@ -6,7 +6,7 @@
 #    By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/02 11:40:52 by drhaouha          #+#    #+#              #
-#    Updated: 2025/04/12 04:13:37 by drhaouha         ###   ########.fr        #
+#    Updated: 2025/04/12 04:15:58 by drhaouha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,24 +20,24 @@ CPP				:= c++
 
 CFLAGS			:= -Wall -Werror -Wextra -std=c++98
 
-NAME			:= megaphone
+NAME			:= phonebook
 
-MEGAPHONE		:= megaphone.cpp
+SRCS			:= PhoneBook.cpp Contact.cpp add.cpp search.cpp main.cpp
 
-OBJ				= ${MEGAPHONE:.cpp=.o}
+OBJS			= ${SRCS:.cpp=.o}
 
 %.o: %.cpp
 			@${CPP} ${CFLAGS} -c $< -o $@
 			@echo "[${BLUE}${NAME}${NC}] : $@ created${NC}"
 
-${NAME}: ${OBJ}
-			@${CPP} ${CFLAGS} ${OBJ} -o $@
+${NAME}: ${OBJS}
+			@${CPP} ${CFLAGS} ${OBJS} -o $@
 			@echo "[${GREEN}${NAME}${NC}] : Executable $@ created.${NC}"
 
 all: ${NAME}
 
 clean:
-			@rm -f ${OBJ}
+			@rm -f ${OBJS}
 			@echo "[${ORANGE}${NAME}${NC}] : Objects removed.${NC}"
 
 fclean: clean
