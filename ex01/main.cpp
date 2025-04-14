@@ -6,13 +6,13 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/10 20:04:55 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:20:21 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
 
-int	main() {
+int	main( void ) {
 	PhoneBook	pbk;
 	std::string	cmd;
 

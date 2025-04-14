@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/10 20:05:47 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:19:05 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,10 @@ std::string	format( std::string string ) {
 	return formated;
 }
 
-std::string to_string98( int i ) {
-	std::stringstream ss;
-	ss << i;
-	return ss.str();
-}
-
 void	printAllContacts( PhoneBook *pbk )
 {
-	int	i;
+	std::string	number;
+	int			i;
 
 	std::cout << "⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻";
 	std::cout << std::endl;
@@ -74,8 +69,10 @@ void	printAllContacts( PhoneBook *pbk )
 	i = -1;
 	while ( ++i <= (*pbk).getRegistered() )
 	{
+		number.clear();
+		number.push_back( char( i + 1 ) + 48 );
 		std::cout << "|";
-		std::cout << format( to_string98(i + 1) ) << "|";
+		std::cout << format( number ) << "|";
 		std::cout << format( (*pbk).getContacts()[i].getFirstName() ) << "|";
 		std::cout << format( (*pbk).getContacts()[i].getLastName() ) << "|";
 		std::cout << format( (*pbk).getContacts()[i].getNickname() ) << "|";

@@ -30,7 +30,7 @@ public:
 
 	Contact( void );
 	~Contact( void );
-	void setContact( std::string values[] );
+	void 		setContact( std::string values[] );
 	std::string getFirstName( void ) const;
 	std::string getLastName( void ) const;
 	std::string getNickname( void ) const;
