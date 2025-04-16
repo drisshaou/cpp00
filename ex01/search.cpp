@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 15:35:08 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 18:04:25 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	getContactIndex( PhoneBook *pbk ) {
 		std::getline( std::cin, index );
 		if ( std::cin.eof() )
 			break;
-		if ( index.length() != 1 || !std::isdigit( index[0] )
+		if ( index.size() != 1 || !std::isdigit( index[0] )
 			|| std::atoi( index.c_str() ) == 0
 			|| std::atoi( index.c_str() ) > (*pbk).getRegistered() + 1 ) {
 			valid = " valid ";
@@ -43,10 +43,10 @@ std::string	format( std::string str ) {
 	std::string	formated;
 
 	formated = str;
-	if ( str.length() >= 10 )
+	if ( str.size() >= 10 )
 		formated = str.substr( 0, 9 ).append( 1, '.' );
 	else {
-		while ( formated.length() != 10 )
+		while ( formated.size() != 10 )
 			formated = formated.insert( 0, " " );
 	}
 	return formated;

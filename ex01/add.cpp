@@ -6,51 +6,82 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 16:11:22 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/17 01:06:03 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
 
-int	countChar( std::string str, char c ) {
+bool	isNameValid( std::string str ) {
+	std::size_t	len;
 	std::size_t	i;
-	int			count;
-	
+	int			space_count;
+	int			last_space_index;
+
+	len = str.size();
+	if ( len < 2 || len > 50 )
+		return false;
+	space_count = 0;
+	last_space_index = -2;
 	i = 0;
-	count = 0;
-	while ( i < str.length() ) {
-		if ( str[i] == c )
-			count++;
+	while ( i < len ) {
+		if ( !std::isalpha( str[i] ) && str[i] != ' ' )
+			return false;
+		else if ( str[i] == ' ' ) {
+			if ( i < 1 || i > len - 2 || ( i > 0 && str[i - 1] == ' ' )
+				|| ( (int)i - last_space_index < 2 ) )
+				return false;
+			last_space_index = i;
+			space_count++;
+			if ( space_count > 3 )
+				return false;
+		}
 		i++;
 	}
-	return count;
+	return true;
+}
+
+bool	isPhoneValid( std::string str ) {
+	std::size_t	len;
+	std::size_t	i;
+
+	len = str.size();
+	if (len != 10 || str[0] != '0' || str[1] == '0')
+		return false;
+	i = 0;
+	while ( i < len ) {
+		if ( !std::isdigit( str[i] ) )
+			return false;
+		i++;
+	}
+	return true;
+}
+
+bool	isSecretValid( std::string str ) {
+	std::size_t	len;
+	std::size_t	i;
+
+	len = str.size();
+	if ( len < 1 || len > 200 )
+		return false;
+	i = 0;
+	while ( i < len ) {
+		if ( !std::isalnum( str[i] ) && !std::strchr( SPEC, str[i] ) )
+			return false;
+		i++;
+	}
+	return true;
 }
 
 bool	isEntryValid( std::string str, int entry ) {
-	std::size_t	pos;
-
 	if ( str.empty() )
 		return false;
-	pos = str.find_first_not_of( ALPHA );
-	if ( entry == NAME ) {
-		if ( pos != std::string::npos && str.length() > 2 && str.length() <= 51 && countChar( str, '-' ) == 1 )
-			return true;
-		else if (pos == std::string::npos && str.length() >= 2 && str.length() <= 50 )
-			return true;
-		else
-			return false;
-	}
-	pos = str.find_first_not_of( NUMBER );
-	if ( entry == PHONE ) {
-		if ( pos != std::string::npos || str.length() != 10 || str[0] != '0' || str[1] == '0' )
-			return false;
-	}
-	pos = str.find_first_not_of( NUMBER ALPHA SPEC );
-	if ( entry == SECRET ) {
-		if ( pos != std::string::npos || str.length() > 200 )
-			return false;
-
-	}
+	if ( entry == NAME )
+		return isNameValid( str );
+	else if ( entry == PHONE )
+		return isPhoneValid( str );
+	else if ( entry == SECRET )
+		return isSecretValid( str );
 	return true;
 }
 
