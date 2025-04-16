@@ -6,31 +6,49 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/10 20:06:31 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 03:59:48 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.hpp"
 
-bool	isPhoneNumberValid( std::string string ) {
-	int	i;
-	int	size;
-
-	if ( string.empty() )
-		return false;
-	i = -1;
-	size = string.size();
-	while ( ++i < size ) {
-		if ( !std::isdigit( string[i] ) )
-			return false;
+int	countChar( std::string str, char c ) {
+	std::size_t	i;
+	int			count;
+	
+	i = 0;
+	count = 0;
+	while ( i < str.length() ) {
+		if ( str[i] == c )
+			count++;
+		i++;
 	}
-	if ( size < 10 || size > 10 || string[0] != '0' )
+	return count;
+}
+
+bool	isEntryValid( std::string str, int entry ) {
+	std::size_t	pos;
+	std::size_t	length;
+
+	if ( str.empty() )
+		return false;
+	pos = str.find_first_not_of( ALPHA );
+	if ( ( pos != std::string::npos || countChar( str, '-' ) > 1 )
+		&& entry == NAME )
+		return false;
+	pos = str.find_first_not_of( NUMBER );
+	if ( pos != std::string::npos && entry == PHONE )
+		return false;
+	pos = str.find_first_not_of( ALPHA NUMBER SPEC );
+	if ( pos != std::string::npos && entry == SECRET )
+		return false;
+	length = str.length();
+	if ( ( length < 10 || length > 10 || str[0] != '0' ) && entry == PHONE )
 		return false;
 	return true;
 }
 
-void	add( PhoneBook *pbk )
-{
+void	add( PhoneBook *pbk ) {
 	static std::string	cat[5] = {
 		"first name",
 		"last name",
@@ -40,20 +58,20 @@ void	add( PhoneBook *pbk )
 	std::string			values[5];
 	std::string			valid;
 	int					i;
+	int					type;
 
 	valid.clear();
 	i = 0;
-	while ( true )
-	{
+	while ( true ) {
 		std::cout << "Enter a " << valid << cat[i] << ":" << std::endl;
 		valid.clear();
 		std::getline( std::cin, values[i] );
-		if ( i == 3 && !isPhoneNumberValid( values[i] ) )
-		{
+		type = ( i < 3 ) ? NAME : ( i == 3 ? PHONE : SECRET );
+		if ( !isEntryValid( values[i], type ) ) {
 			valid = "valid ";
 			continue;
 		}
-		i += (values[i].size() > 0);
+		i += ( values[i].length() > 0 );
 		if ( i == 5 )
 			break;
 	}

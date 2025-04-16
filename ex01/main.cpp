@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/14 12:20:21 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 04:02:00 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ int	main( void ) {
 		cmd.clear();
 		std::cout << "Enter a command (ADD, SEARCH or EXIT):" << std::endl;
 		std::getline(std::cin, cmd);
+		if ( std::cin.eof() == true ) {
+			std::cout << "^D pressed Exiting phonebook." << std::endl;
+			break;
+		}
 		if ( cmd == "ADD" )
 			add( &pbk );
 		else if ( cmd == "SEARCH" )
