@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 04:58:15 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:34:58 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,29 @@ int	countChar( std::string str, char c ) {
 
 bool	isEntryValid( std::string str, int entry ) {
 	std::size_t	pos;
-	std::size_t	length;
 
 	if ( str.empty() )
 		return false;
 	pos = str.find_first_not_of( ALPHA );
-	if ( ( pos != std::string::npos || countChar( str, '-' ) > 1 )
-		&& entry == NAME )
-		return false;
+	if ( entry == NAME ) {
+		if ( pos != std::string::npos && str.length() > 2 && str.length() <= 26 && countChar( str, '-' ) == 1 )
+			return true;
+		else if (pos == std::string::npos && str.length() >= 2 && str.length() <= 25 )
+			return true;
+		else
+			return false;
+	}
 	pos = str.find_first_not_of( NUMBER );
-	if ( pos != std::string::npos && entry == PHONE )
-		return false;
+	if ( entry == PHONE ) {
+		if ( pos != std::string::npos || str.length() != 10 || str[0] != '0' || str[1] == '0' )
+			return false;
+	}
 	pos = str.find_first_not_of( NUMBER ALPHA SPEC );
-	if ( pos != std::string::npos && entry == SECRET )
-		return false;
-	length = str.length();
-	if ( ( length < 10 || length > 10 || str[0] != '0' ) && entry == PHONE )
-		return false;
+	if ( entry == SECRET ) {
+		if ( pos != std::string::npos || str.length() > 200 )
+			return false;
+
+	}
 	return true;
 }
 
@@ -60,21 +66,27 @@ void	add( PhoneBook *pbk ) {
 	int					type;
 	std::string			valid;
 
+	system( "clear" );
+	std::cout << "Enter a command (ADD, SEARCH or EXIT):\nADD" << std::endl;
 	i = 0;
 	while ( true ) {
 		type = ( i < 3 ) ? NAME : ( i == 3 ? PHONE : SECRET );
 		std::cout << "Enter your " << cat[i] << valid << ":" << std::endl;
 		valid.clear();
 		std::getline( std::cin, values[i] );
+		if ( std::cin.eof() )
+			return;
 		if ( !isEntryValid( values[i], type ) ) {
-			valid = ( i < 3 ) ? "[a-zA-Z|-]" : ( i == 3 ? "[0-9]" : "[0-9|a-zA-Z|- !',.:;]" );
-			valid = " (valid chars: " + valid + ")";
+			valid = ( i < 3 ) ? REGEX_NAME : ( i == 3 ? REGEX_PHONE : REGEX_SECRET );
+			valid = " (regex: " + valid + ")";
 			std::cout << ( values[i].empty() ? EMPTY : FORBIDDEN ) << std::endl;
+			std::cin.clear();
 			continue;
 		}
 		i++;
 		if ( i == 5 )
 			break;
 	}
+	system( "clear" );
 	(*pbk).addContact( values );
 }

@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 04:18:03 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:35:08 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	getContactIndex( PhoneBook *pbk ) {
 		std::cout << "Enter a" << valid << "index" << ":" << std::endl;
 		valid = "n ";
 		std::getline( std::cin, index );
+		if ( std::cin.eof() )
+			break;
 		if ( index.length() != 1 || !std::isdigit( index[0] )
 			|| std::atoi( index.c_str() ) == 0
 			|| std::atoi( index.c_str() ) > (*pbk).getRegistered() + 1 ) {
@@ -60,7 +62,7 @@ void	printAllContacts( PhoneBook *pbk ) {
 	i = -1;
 	while ( ++i <= (*pbk).getRegistered() ) {
 		number.clear();
-		number.push_back( char( i + 1 ) + 48 );
+		number.push_back( char( i + 1 + 48 ) );
 		std::cout << "|";
 		std::cout << format( number ) << "|";
 		std::cout << format( (*pbk).getContacts()[i].getFirstName() ) << "|";
@@ -81,11 +83,14 @@ void	search( PhoneBook *pbk ) {
 		"Phone number: ",
 		"Darkest secret: "};
 	int					i;
-
+	
+	system( "clear" );
+	std::cout << "Enter a command (ADD, SEARCH or EXIT):\nSEARCH" << std::endl;
 	printAllContacts( pbk );
 	i = getContactIndex( pbk );
 	if ( i == -1 ) {
-		std::cout << "Phonebook empty, back to menu." << std::endl;
+		if ( !std::cin.eof() )
+			std::cout << "Phonebook empty, back to menu." << std::endl;
 		return;
 	}
 	std::cout << cat[0] << (*pbk).getContacts()[i].getFirstName() << std::endl;
