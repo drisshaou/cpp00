@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 03:59:48 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 04:58:15 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	isEntryValid( std::string str, int entry ) {
 	pos = str.find_first_not_of( NUMBER );
 	if ( pos != std::string::npos && entry == PHONE )
 		return false;
-	pos = str.find_first_not_of( ALPHA NUMBER SPEC );
+	pos = str.find_first_not_of( NUMBER ALPHA SPEC );
 	if ( pos != std::string::npos && entry == SECRET )
 		return false;
 	length = str.length();
@@ -54,24 +54,25 @@ void	add( PhoneBook *pbk ) {
 		"last name",
 		"nickname",
 		"phone number",
-		"dark secret"};
+		"darkest secret"};
 	std::string			values[5];
-	std::string			valid;
 	int					i;
 	int					type;
+	std::string			valid;
 
-	valid.clear();
 	i = 0;
 	while ( true ) {
-		std::cout << "Enter a " << valid << cat[i] << ":" << std::endl;
+		type = ( i < 3 ) ? NAME : ( i == 3 ? PHONE : SECRET );
+		std::cout << "Enter your " << cat[i] << valid << ":" << std::endl;
 		valid.clear();
 		std::getline( std::cin, values[i] );
-		type = ( i < 3 ) ? NAME : ( i == 3 ? PHONE : SECRET );
 		if ( !isEntryValid( values[i], type ) ) {
-			valid = "valid ";
+			valid = ( i < 3 ) ? "[a-zA-Z|-]" : ( i == 3 ? "[0-9]" : "[0-9|a-zA-Z|- !',.:;]" );
+			valid = " (valid chars: " + valid + ")";
+			std::cout << ( values[i].empty() ? EMPTY : FORBIDDEN ) << std::endl;
 			continue;
 		}
-		i += ( values[i].length() > 0 );
+		i++;
 		if ( i == 5 )
 			break;
 	}

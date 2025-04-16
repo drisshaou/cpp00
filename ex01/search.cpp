@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 04:00:49 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 04:18:03 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	search( PhoneBook *pbk ) {
 		"Last name: ",
 		"Nickname: ",
 		"Phone number: ",
-		"Dark secret: "};
+		"Darkest secret: "};
 	int					i;
 
 	printAllContacts( pbk );

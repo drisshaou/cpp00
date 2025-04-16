@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 19:05:05 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 03:25:21 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 04:38:01 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #define ALPHA		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-"
 #define NUMBER		"0123456789"
 #define	SPEC		" !',.:;"
+#define	EMPTY		"Empty string found!"
+#define	FORBIDDEN	"Forbidden chars found!"
 
 #include "PhoneBook.hpp"
 #include <cstdlib>
