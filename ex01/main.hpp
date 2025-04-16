@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 19:05:05 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 14:59:48 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:11:32 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #define	EMPTY			"Empty string found!"
 #define	FORBIDDEN		"Does not match regex!"
 
-#define	REGEX_NAME		"[a-zA-Z]{2,25}[-]{0,1}"
+#define	REGEX_NAME		"[a-zA-Z]{2,50}[-]{0,1}"
 #define	REGEX_PHONE		"[0]{1}[1-9]{1}[0-9]{8}"
 #define	REGEX_SECRET	"[0-9a-zA-Z- !',.:;]{200}"
 

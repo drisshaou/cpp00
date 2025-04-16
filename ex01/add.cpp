@@ -6,7 +6,7 @@
 /*   By: drhaouha <drhaouha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 21:17:14 by drhaouha          #+#    #+#             */
-/*   Updated: 2025/04/16 15:34:58 by drhaouha         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:11:22 by drhaouha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ bool	isEntryValid( std::string str, int entry ) {
 		return false;
 	pos = str.find_first_not_of( ALPHA );
 	if ( entry == NAME ) {
-		if ( pos != std::string::npos && str.length() > 2 && str.length() <= 26 && countChar( str, '-' ) == 1 )
+		if ( pos != std::string::npos && str.length() > 2 && str.length() <= 51 && countChar( str, '-' ) == 1 )
 			return true;
-		else if (pos == std::string::npos && str.length() >= 2 && str.length() <= 25 )
+		else if (pos == std::string::npos && str.length() >= 2 && str.length() <= 50 )
 			return true;
 		else
 			return false;
