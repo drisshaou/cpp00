@@ -1,5 +1,3 @@
-# cpp00
-
 *This project has been created as part of the 42 curriculum by drhaouha.*
 
 # C++ - Module 00
